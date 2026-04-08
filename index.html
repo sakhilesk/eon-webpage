@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eon Cloud Solutions | Data Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --cosmic-orange: #ff4500;
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Barlow Condensed', sans-serif;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        .background-animation {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background-animation::before,
+        .background-animation::after {
+            content: '';
+            position: absolute;
+            width: 55vw;
+            height: 55vw;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.45;
+            background: radial-gradient(circle, rgba(255,140,40,0.35), transparent 55%);
+        }
+
+        .background-animation::before {
+            top: -20%;
+            left: -15%;
+            animation: drift1 24s linear infinite;
+        }
+
+        .background-animation::after {
+            bottom: -20%;
+            right: -10%;
+            width: 45vw;
+            height: 45vw;
+            animation: drift2 28s linear infinite reverse;
+        }
+
+        @keyframes drift1 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(12vw, 10vh) scale(1.05); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        @keyframes drift2 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-10vw, -8vh) scale(1.03); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* Scroll Snapping for that SpaceX feel */
+        .container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        section {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: var(--cosmic-orange);
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--cosmic-orange);
+        }
+
+        /* Typography & Layout */
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #cccccc;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transition: all 0.45s ease;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .btn:hover {
+            border-color: var(--cosmic-orange);
+            color: var(--cosmic-orange);
+            background: rgba(255, 69, 0, 0.1);
+        }
+
+        /* Specific Sections */
+        #hero {
+            /* A subtle radial gradient to give a deep space feel */
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 80%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: #0a0a0a;
+            padding: 40px;
+            border: 1px solid #222;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--cosmic-orange);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--cosmic-orange);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .service-card p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        /* Footer Section */
+        #contact {
+            background: #050505;
+        }
+
+        .contact-info {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .contact-info a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--cosmic-orange);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 30px;
+        }
+
+        .social-icons a {
+            color: var(--text-color);
+            font-size: 2rem;
+            transition: all 0.5s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--cosmic-orange);
+            transform: scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            nav { display: none; } /* Simplified for mobile, could add a hamburger menu */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-animation"></div>
+
+    <header>
+        <div class="logo">Eon Cloud <span>Solutions</span></div>
+        <nav>
+            <a href="#hero">Mission</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <section id="hero">
+            <h1>Intelligence in Orbit</h1>
+            <p>Empowering decision-making through precision data analytics. We transform raw information into strategic assets.</p>
+            <a href="#services" class="btn">Explore Services</a>
+        </section>
+
+        <section id="services">
+            <h2>Core Capabilities</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fa-solid fa-broom"></i>
+                    <h3>Data Cleaning</h3>
+                    <p>Transforming raw, unstructured datasets into error-free foundations using Python and SQL.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-shield-check"></i>
+                    <h3>Data Validating</h3>
+                    <p>Ensuring accuracy, consistency, and absolute reliability across your entire data architecture.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h3>Data Visualizing</h3>
+                    <p>Translating complex metrics into intuitive, actionable dashboards with Power BI and Tableau.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Initiate Contact</h2>
+            <p>Ready to deploy your next data architecture? Connect with us to establish communication.</p>
+            
+            <div class="contact-info">
+                <a href="mailto:info@eoncloudsolution.co.za">info@eoncloudsolution.co.za</a>
+            </div>
+
+            <div class="social-icons">
+                <a href="#" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
