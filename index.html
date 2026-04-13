@@ -259,6 +259,20 @@
             gap: 30px;
         }
 
+        .site-footer {
+            margin-top: 40px;
+            padding: 30px 0;
+            color: #cecece;
+            font-size: 0.95rem;
+            letter-spacing: 0.8px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .site-footer strong {
+            color: #e6e6e6;
+            font-weight: 600;
+        }
+
         .social-icons a {
             color: var(--text-color);
             font-size: 2rem;
@@ -343,7 +357,17 @@
             </div>
         </section>
 
+        <footer class="site-footer">
+            <div class="site-footer-left">
+                <strong>Eon Cloud Solutions™</strong> &ndash; <span id="year"></span>. All rights reserved.
+            </div>
+        </footer>
+
     </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 
 </body>
 </html>
