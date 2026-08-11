@@ -1,373 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eon Cloud Solutions | Data Analytics</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* CSS Variables */
-        :root {
-            --bg-color: #000000;
-            --text-color: #ffffff;
-            --cosmic-orange: #ff4500;
-            --font-main: 'Inter', sans-serif;
-            --font-heading: 'Barlow Condensed', sans-serif;
-        }
-
-        /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body, html {
-            font-family: var(--font-main);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            position: relative;
-        }
-
-        .background-animation {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .background-animation::before,
-        .background-animation::after {
-            content: '';
-            position: absolute;
-            width: 55vw;
-            height: 55vw;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.45;
-            background: radial-gradient(circle, rgba(255,140,40,0.35), transparent 55%);
-        }
-
-        .background-animation::before {
-            top: -20%;
-            left: -15%;
-            animation: drift1 24s linear infinite;
-        }
-
-        .background-animation::after {
-            bottom: -20%;
-            right: -10%;
-            width: 45vw;
-            height: 45vw;
-            animation: drift2 28s linear infinite reverse;
-        }
-
-        @keyframes drift1 {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(12vw, 10vh) scale(1.05); }
-            100% { transform: translate(0, 0) scale(1); }
-        }
-
-        @keyframes drift2 {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-10vw, -8vh) scale(1.03); }
-            100% { transform: translate(0, 0) scale(1); }
-        }
-
-        /* Scroll Snapping for that SpaceX feel */
-        .container {
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-        }
-
-        section {
-            height: 100vh;
-            width: 100vw;
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        /* Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 30px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-        }
-
-        .logo {
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 12px;
-        }
-
-        .logo img {
-            height: 90px;
-            width: auto;
-            display: block;
-        }
-
-        nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 0.9rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--cosmic-orange);
-        }
-
-        /* Typography & Layout */
-        h1 {
-            font-family: var(--font-heading);
-            font-size: 4rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-family: var(--font-heading);
-            font-size: 3rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            font-weight: 300;
-            max-width: 600px;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            color: #cccccc;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 15px 40px;
-            border: 2px solid var(--text-color);
-            color: var(--text-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 2px;
-            transition: all 0.45s ease;
-            cursor: pointer;
-            background: transparent;
-        }
-
-        .btn:hover {
-            border-color: var(--cosmic-orange);
-            color: var(--cosmic-orange);
-            background: rgba(255, 69, 0, 0.1);
-        }
-
-        /* Specific Sections */
-        #hero {
-            /* A subtle radial gradient to give a deep space feel */
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 80%);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            max-width: 1200px;
-            width: 100%;
-            margin-top: 40px;
-        }
-
-        .service-card {
-            background: #0a0a0a;
-            padding: 40px;
-            border: 1px solid #222;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--cosmic-orange);
-        }
-
-        .service-card i {
-            font-size: 3rem;
-            color: var(--cosmic-orange);
-            margin-bottom: 20px;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .service-card p {
-            font-size: 1rem;
-            margin-bottom: 0;
-        }
-
-        /* Footer Section */
-        #contact {
-            background: #050505;
-        }
-
-        .contact-info {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-        }
-
-        .contact-info a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-info a:hover {
-            color: var(--cosmic-orange);
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 30px;
-        }
-
-        .site-footer {
-            margin-top: 40px;
-            padding: 30px 0;
-            color: #cecece;
-            font-size: 0.95rem;
-            letter-spacing: 0.8px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .site-footer strong {
-            color: #e6e6e6;
-            font-weight: 600;
-        }
-
-        .social-icons a {
-            color: var(--text-color);
-            font-size: 2rem;
-            transition: all 0.5s ease;
-        }
-
-        .social-icons a:hover {
-            color: var(--cosmic-orange);
-            transform: scale(1.2);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            nav { display: none; } /* Simplified for mobile, could add a hamburger menu */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EON CLOUD SOLUTIONS — Data Cleaning & Power BI Visualization</title>
+  <meta name="description" content="EON Cloud Solutions transforms messy data into clear decisions through expert data cleaning and Power BI visualization." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-    <div class="background-animation"></div>
-
-    <header>
-        <div class="logo"><img src="img/2.png" alt="Eon Cloud Solutions logo"></div>
-        <nav>
-            <a href="#hero">Mission</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
-
-    <div class="container">
-        
-        <section id="hero">
-            <h1>Intelligence in Orbit</h1>
-            <p>Empowering decision-making through precision data analytics. We transform raw information into strategic assets.</p>
-            <a href="#services" class="btn">Explore Services</a>
-        </section>
-
-        <section id="services">
-            <h2>Core Capabilities</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fa-solid fa-broom"></i>
-                    <h3>Data Cleaning</h3>
-                    <p>Transforming raw, unstructured datasets into error-free foundations.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fa-solid fa-shield-check"></i>
-                    <h3>Data Validating</h3>
-                    <p>Ensuring accuracy, consistency, and absolute reliability across your entire data architecture.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <h3>Data Visualizing</h3>
-                    <p>Translating complex metrics into intuitive, actionable interactive dashboards.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fa-solid fa-gauge-high"></i>
-                    <h3>Business KPIs</h3>
-                    <p>We do business KPI's by tracking performance indicators that drive growth, efficiency, and executive decision-making.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <h2>Initiate Contact</h2>
-            <p>Ready to deploy your next data architecture? Connect with us to establish communication.</p>
-            
-            <div class="contact-info">
-                <a href="mailto:info@eoncloudsolution.co.za">info@eoncloudsolutions.co.za</a>
-            </div>
-
-            <div class="social-icons">
-                <a href="#" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-            </div>
-        </section>
-
-        <footer class="site-footer">
-            <div class="site-footer-left">
-                <strong>Eon Cloud Solutions™</strong> &ndash; <span id="year"></span>. All rights reserved.
-            </div>
-        </footer>
-
+  <!-- Top ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>DATA CLEANING</span><span class="dot">●</span>
+      <span>POWER BI DASHBOARDS</span><span class="dot">●</span>
+      <span>DATA MODELING</span><span class="dot">●</span>
+      <!--<span>ETL PIPELINES</span><span class="dot">●</span>-->
+      <span>VISUAL ANALYTICS</span><span class="dot">●</span>
+      <span>DATA CLEANING</span><span class="dot">●</span>
+      <span>POWER BI DASHBOARDS</span><span class="dot">●</span>
+      <span>DATA MODELING</span><span class="dot">●</span>
+      <!--<span>ETL PIPELINES</span><span class="dot">●</span>-->
+      <span>VISUAL ANALYTICS</span><span class="dot">●</span>
     </div>
+  </div>
 
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+  <!-- Header -->
+  <header class="header" id="top">
+    <a href="#top" class="brand" aria-label="EON Cloud Solutions home">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">EON<span class="brand__sub">CLOUD&nbsp;SOLUTIONS</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+    </nav>
+    <a href="#contact" class="btn btn--solid header__cta">Start a project</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
 
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="btn btn--solid">Start a project</a>
+  </div>
+
+  <main>
+    <!-- Hero -->
+    <!--<section class="hero">
+      <div class="hero__meta">
+        <span>01 — DATA ANALYTICS STUDIO</span>
+        <span>EST. 2024</span>
+      </div>-->
+      <h1 class="hero__title">
+        We turn<br />
+        <span class="accent">messy data</span><br />
+        into clear<br />
+        decisions.
+      </h1>
+      <div class="hero__bottom">
+        <p class="hero__lead">
+          EON Cloud Solutions cleans, models and visualizes your business data
+          through Power BI — so every number tells the truth.
+        </p>
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--solid">Book a consultation →</a>
+        </div>
+      </div>
+     <!--<div class="hero__image">
+        <img src="public/images/dashboard.png" alt="Power BI style analytics dashboard with charts and KPI cards" />
+      </div>-->
+    </section>
+
+    <!-- Stats -->
+    <section class="stats" aria-label="Company statistics">
+      <div class="stat">
+        <span class="stat__num" data-count="98">0</span><span class="stat__suffix">%</span>
+        <p>Data accuracy delivered after cleaning &amp; validation.</p>
+      </div>
+      <div class="stat">
+        <span class="stat__num" data-count="240">0</span><span class="stat__suffix">+</span>
+        <p>Dashboards designed and shipped for clients.</p>
+      </div>
+      <div class="stat">
+        <span class="stat__num" data-count="40">0</span><span class="stat__suffix">%</span>
+        <p>Average reporting time saved with automation.</p>
+      </div>
+      <div class="stat">
+        <span class="stat__num" data-count="12">0</span><span class="stat__suffix">M</span>
+        <p>Rows of raw data processed every month.</p>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+      <div class="section-head">
+        <span class="section-head__index">02 / SERVICES</span>
+        <h2>What we do<br />with your data.</h2>
+      </div>
+      <div class="services__grid">
+        <article class="service">
+          <span class="service__no">01</span>
+          <h3>Data Cleaning</h3>
+          <p>De-duplication, normalization, validation and gap-filling that turn unreliable spreadsheets into a single source of truth.</p>
+        </article>
+        <article class="service">
+          <span class="service__no">02</span>
+          <h3>Power BI Dashboards</h3>
+          <p>Interactive, brand-aligned reports with drill-downs, bookmarks and KPIs your whole team actually wants to open.</p>
+        </article>
+        <article class="service">
+          <span class="service__no">03</span>
+          <h3>Data Modeling</h3>
+          <p>Star schemas, DAX measures and relationships engineered for speed, accuracy and effortless scaling.</p>
+        </article>
+        <article class="service">
+          <span class="service__no">04</span>
+          <h3>ETL &amp; Automation</h3>
+          <p>Automated pipelines that pull, transform and refresh data on schedule — no more manual exports.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process" id="process">
+      <div class="section-head section-head--light">
+        <span class="section-head__index">03 / PROCESS</span>
+        <h2>From raw<br />to remarkable.</h2>
+      </div>
+      <div class="process__list">
+        <div class="process__row">
+          <span class="process__num">1</span>
+          <h3>Audit</h3>
+          <p>We inspect your sources, find the gaps, and map exactly where the noise lives.</p>
+        </div>
+        <div class="process__row">
+          <span class="process__num">2</span>
+          <h3>Clean</h3>
+          <p>Standardize, de-duplicate and validate until the dataset is trustworthy.</p>
+        </div>
+        <div class="process__row">
+          <span class="process__num">3</span>
+          <h3>Model</h3>
+          <p>Build relationships and DAX measures that make analysis fast and reliable.</p>
+        </div>
+        <div class="process__row">
+          <span class="process__num">4</span>
+          <h3>Visualize</h3>
+          <p>Design Power BI dashboards that surface insight at a glance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work / Feature -->
+    <section class="work" id="work">
+      <div class="section-head">
+        <span class="section-head__index">04 / WORK</span>
+        <h2>Built for<br />clarity.</h2>
+      </div>
+      <div class="work__feature">
+        <div class="work__image">
+          <img src="public/images/data-abstract.png" alt="Abstract visualization of structured data networks" />
+        </div>
+        <div class="work__copy">
+          <p class="work__quote">“EON Cloud Solutions cut our monthly reporting from three days to twenty minutes — and we finally trust the numbers.”</p>
+          <!--<div class="work__author">
+            <strong>Operations Director</strong>
+            <span>National Retail Group</span>
+          </div>-->
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+      <div class="section-head">
+        <span class="section-head__index">05 / ABOUT</span>
+      </div>
+      <p class="about__statement">
+        We are a focused team of data engineers and analysts who believe
+        <span class="accent">good decisions start with clean data.</span>
+        EON Cloud Solutions partners with businesses to remove the chaos and
+        deliver Power BI experiences that are precise, fast and beautiful.
+      </p>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section class="contact" id="contact">
+      <div class="contact__inner">
+        <span class="section-head__index">06 / CONTACT</span>
+        <h2>Let's clean up<br />your data.</h2>
+        <form class="contact__form" id="contactForm" novalidate action="https://formspree.io/f/xppadlnb"
+          method="POST">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Doe" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="jane@company.com" required />
+          </div>
+          <div class="field field--full">
+            <label for="message">Tell us about your data</label>
+            <textarea id="message" name="message" rows="3" placeholder="We have sales data spread across 6 spreadsheets..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn--solid btn--full">Send message →</button>
+          <p class="contact__status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__brand">
+      <span class="brand__name">EON<span class="brand__sub">CLOUD&nbsp;SOLUTIONS</span></span>
+      <p>Data cleaning &amp; Power BI visualization.</p>
+    </div>
+    <div class="footer__cols">
+      <div>
+        <h4>Navigate</h4>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:info@eoncloudsolutions.co.za">info@eoncloudsolutions.co.za</a>
+        <!--<a href="tel:+27684592528">+27 68 459 2528</a>-->
+      </div>
+      <!--<div>
+        <h4>Social</h4>
+        <a href="#">LinkedIn</a>
+        <a href="#">X / Twitter</a>
+      </div>
+    </div>-->
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> EON Cloud Solutions. All rights reserved.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
